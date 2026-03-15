@@ -28,3 +28,12 @@ class SavedNewsRepositoryImpl(SavedNewsRepositoryPort):
         if orm is None:
             return None
         return SavedNewsMapper.to_entity(orm)
+
+    async def find_by_id(self, news_id: str) -> Optional[SavedNews]:
+        result = await self.session.execute(
+            select(SavedNewsORM).where(SavedNewsORM.id == news_id)
+        )
+        orm = result.scalar_one_or_none()
+        if orm is None:
+            return None
+        return SavedNewsMapper.to_entity(orm)

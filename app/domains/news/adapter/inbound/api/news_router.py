@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.domains.analysis.adapter.outbound.external.web_scraper_adapter import WebScraperAdapter
 from app.domains.news.adapter.outbound.external.serp_news_adapter import SerpNewsAdapter
 from app.domains.news.adapter.outbound.persistence.saved_news_repository_impl import SavedNewsRepositoryImpl
 from app.domains.news.application.request.save_news_request import SaveNewsRequest
@@ -35,7 +36,8 @@ async def save_news(
     session: AsyncSession = Depends(get_db_session),
 ):
     repository = SavedNewsRepositoryImpl(session)
-    usecase = SaveNewsUseCase(saved_news_repository=repository)
+    scraper = WebScraperAdapter()
+    usecase = SaveNewsUseCase(saved_news_repository=repository, article_content_port=scraper)
 
     try:
         return await usecase.execute(request)
