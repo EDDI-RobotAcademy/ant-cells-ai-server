@@ -11,5 +11,6 @@ class SavedNews:
     source: str
     published_at: str
     snippet: Optional[str] = None
+    content: Optional[str] = None
     id: str = field(default_factory=lambda: str(uuid4()))
     saved_at: datetime = field(default_factory=datetime.utcnow)

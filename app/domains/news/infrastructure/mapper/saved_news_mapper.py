@@ -12,6 +12,7 @@ class SavedNewsMapper:
             source=orm.source,
             published_at=orm.published_at,
             snippet=orm.snippet,
+            content=orm.content,
             saved_at=orm.saved_at,
         )
 
@@ -24,5 +25,6 @@ class SavedNewsMapper:
             source=entity.source,
             published_at=entity.published_at,
             snippet=entity.snippet,
+            content=entity.content,
             saved_at=entity.saved_at,
         )

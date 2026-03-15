@@ -12,3 +12,7 @@ class SavedNewsRepositoryPort(ABC):
     @abstractmethod
     async def find_by_link(self, link: str) -> Optional[SavedNews]:
         pass
+
+    @abstractmethod
+    async def find_by_id(self, news_id: str) -> Optional[SavedNews]:
+        pass
