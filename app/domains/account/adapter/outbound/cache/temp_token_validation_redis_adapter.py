@@ -1,3 +1,4 @@
+import json
 from typing import Optional
 
 import redis.asyncio as aioredis
@@ -14,7 +15,14 @@ class TempTokenValidationRedisAdapter(TempTokenValidationPort):
 
     async def get(self, token: str) -> Optional[str]:
         key = f"{TEMP_TOKEN_PREFIX}{token}"
-        return await self._redis.get(key)
+        raw = await self._redis.get(key)
+        if raw is None:
+            return None
+        try:
+            data = json.loads(raw)
+            return data.get("kakao_access_token")
+        except (json.JSONDecodeError, AttributeError):
+            return raw
 
     async def delete(self, token: str) -> None:
         key = f"{TEMP_TOKEN_PREFIX}{token}"

@@ -35,7 +35,7 @@ async def request_access_token_after_redirection(
     settings = get_settings()
     result = await usecase.execute(code=code)
 
-    redirect_response = RedirectResponse(url=settings.CORS_ALLOWED_FRONTEND_URL)
+    redirect_response = RedirectResponse(url=f"{settings.CORS_ALLOWED_FRONTEND_URL}/auth-callback")
 
     if result.user_token:
         redirect_response.set_cookie(

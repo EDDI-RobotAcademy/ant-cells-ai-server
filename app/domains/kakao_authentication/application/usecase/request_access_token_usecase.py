@@ -75,6 +75,8 @@ class RequestAccessTokenUseCase:
         await self.temp_token.save(
             token=temp_token_value,
             kakao_access_token=token.access_token,
+            nickname=user_info.nickname or "",
+            email=user_info.email or "",
             ttl_seconds=TEMP_TOKEN_TTL_SECONDS,
         )
 
