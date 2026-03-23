@@ -12,7 +12,7 @@ USER_TOKEN_COOKIE_KEY = "user_token"
 USER_TOKEN_TTL_SECONDS = 3600  # 1 hour
 
 
-@router.post("/register")
+@router.post("/sign-up")
 async def register_account(
     request: RegisterAccountRequest,
     temp_token: str = Cookie(..., alias="temp_token"),
